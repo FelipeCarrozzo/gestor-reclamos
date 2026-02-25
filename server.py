@@ -23,23 +23,27 @@ gestorReportes = GestorReportes(repoReclamo)
 rolesAdmin = ['secretarioTecnico', 'jefeMaestranza', 'jefeSoporteInformático']
 
 
+# @app.route('/')
+# def inicio():
+#     """
+#     Ruta principal que renderiza la página de inicio.
+#     Carga los datos de los usuarios administrativos desde un archivo y los registra en el sistema.
+#     """
+#     # Registro de usuarios administrativos
+#     archivoDatos = "./data/datosAdmins.txt"
+
+#     with open(archivoDatos, 'r', encoding='utf-8') as file:
+#         for line in file:
+#             nombre, apellido, email, nombreUsuario, rol, password = line.strip().split(',')
+#             try:
+#                 gestorUsuarios.registrarUsuario(nombre, apellido, email, nombreUsuario, rol, password)
+#             except ValueError as e:
+#                 print(f"Error al registrar admin {nombreUsuario}: {e}")  
+#     return render_template('inicio.html')
+
 @app.route('/')
 def inicio():
-    """
-    Ruta principal que renderiza la página de inicio.
-    Carga los datos de los usuarios administrativos desde un archivo y los registra en el sistema.
-    """
-    # Registro de usuarios administrativos
-    archivoDatos = "./data/datosAdmins.txt"
-
-    with open(archivoDatos, 'r', encoding='utf-8') as file:
-        for line in file:
-            nombre, apellido, email, nombreUsuario, rol, password = line.strip().split(',')
-            try:
-                gestorUsuarios.registrarUsuario(nombre, apellido, email, nombreUsuario, rol, password)
-            except ValueError as e:
-                print(f"Error al registrar admin {nombreUsuario}: {e}")  
-    return render_template('inicio.html')
+    return "FUNCIONA"
 
 @app.route("/bienvenido")
 @login_required
