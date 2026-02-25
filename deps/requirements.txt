@@ -15,3 +15,4 @@ pytest
 wordcloud
 matplotlib
 reportlab
+gunicorn

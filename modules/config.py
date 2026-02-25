@@ -6,12 +6,20 @@ from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager
 from flask_bootstrap import Bootstrap
 import datetime
-
 from modules.usuario import Usuario
-
+import os
 # --- App y configuración general ---
 # Crear instancia de Flask y definir la configuración
-app = Flask("server")
+
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, "templates"),
+    static_folder=os.path.join(BASE_DIR, "static")
+)
+# app = Flask(__name__)
 app.config['SECRET_KEY'] = "d87h3dxodj09j30"
 app.config["SESSION_TYPE"] = "filesystem" #guarda las sesiones en el sistema de archivos
 app.config["SESSION_FILE_DIR"] = "./flask_session_cache" #carpeta donde se almacenan las sesione
@@ -20,7 +28,7 @@ app.config["PERMANENT_SESSION_LIFETIME"] = datetime.timedelta(minutes=15) #true 
 
 
 # --- SQLAlchemy engine ---
-URL_BD = 'sqlite:///data/base_datos.db'
+URL_BD = 'sqlite:///base_datos.db'
 
 """Crear el motor de conexión a la BD. 'crear_engine' devuelve
    una clase sesión de SQLAlchemy"""
