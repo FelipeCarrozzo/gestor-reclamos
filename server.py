@@ -41,9 +41,23 @@ rolesAdmin = ['secretarioTecnico', 'jefeMaestranza', 'jefeSoporteInformático']
 #                 print(f"Error al registrar admin {nombreUsuario}: {e}")  
 #     return render_template('inicio.html')
 
-@app.route('/')
+@app.route("/")
 def inicio():
-    return "FUNCIONA"
+    try:
+        archivoDatos = "./data/datosAdmins.txt"
+
+        with open(archivoDatos, 'r', encoding='utf-8') as file:
+            for line in file:
+                nombre, apellido, email, nombreUsuario, rol, password = line.strip().split(',')
+                try:
+                    gestorUsuarios.registrarUsuario(nombre, apellido, email, nombreUsuario, rol, password)
+                except ValueError as e:
+                    print(f"Error al registrar admin {nombreUsuario}: {e}")
+
+        return render_template("inicio.html")
+
+    except Exception as e:
+        return f"ERROR: {str(e)}"
 
 @app.route("/bienvenido")
 @login_required
